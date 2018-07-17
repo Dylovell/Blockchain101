@@ -1,5 +1,7 @@
+/////////THIS PACKAGE HELPS WITH HASHING
 const SHA256 = require('crypto-js/sha256');
 
+////////////THIS CREATES BLOCKS
 class Block{
     constructor(index,timestamp,data,previousHash = ''){
         this.index=index;
@@ -22,16 +24,16 @@ class Block{
     }
 }
 
+/////////////THIS CREATES THE BLOCKCHAIN USING BLOCKs
 class Blockchain{
     constructor(){
         this.chain = [this.createGenesisBlock()];
         this.difficulty = 5;
     }
-
+///THE FIRST BLOCK IN THE CHAIN
     createGenesisBlock(){
         return new Block(0,"07/16/2018", "Genesis Block", "0");
     }
-
     getLatestBlock(){
         return this.chain[this.chain.length-1];
     }
@@ -40,6 +42,7 @@ class Blockchain{
         newBlock.mineBlock(this.difficulty);
         this.chain.push(newBlock);
     }
+////USED TO CHECK IF DATA ON BLOCKCHAIN HAS BEEN ALTERED
     isChainValid(){
         for(let i=1; i < this.chain.length;i++ ){
             const currentBlock = this.chain[i];
@@ -56,6 +59,9 @@ class Blockchain{
     }
 
 }
+
+
+/////////TESTING IT
 
 let dillCoin = new Blockchain();
 console.log('mining block 1...')
